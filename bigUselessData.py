@@ -72,19 +72,9 @@ while True:
         # click link
         l.click()
 
-        # # check link
-        # new_page = driver.current_url #this maybe shouldn't be commented out
-        #
-        # # if link is the same, keep looping
-        # if new_page == current_page:
-        #     continue
-        # else:
-        #     # break loop if you are in a new url
-        #     break
-
         #1 in 10 times, start from a new source again
         num1=random.randint(1, 10)
-        print num1
+
         if num1==7:
             init=0
         else:
