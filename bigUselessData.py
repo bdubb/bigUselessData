@@ -9,7 +9,7 @@ import urllib2
 init=0;
 
 def random_amount_of_waiting():
-    time.sleep(random.randint(0,10)+1)
+     time.sleep(random.randint(0,5)+1)
 
 def start_new_session():
     list_of_sources = ["https://www.wikipedia.org/","https://www.yahoo.com/","https://www.bing.com","https://www.youtube.com","https://www.google.com","https://www.flickr.com/"]
@@ -44,7 +44,7 @@ def start_new_session():
     #put a search term in the search box
     search_box.send_keys(WORDS[which_search_term])
     search_box.submit()
-    random_amount_of_waiting() # Let the user actually see something!
+    #random_amount_of_waiting() # Let the user actually see something!
     return driver
 
 driver = webdriver.Chrome()
@@ -53,33 +53,45 @@ driver = webdriver.Chrome()
 while True:
     if init==0:
         driver=start_new_session()
+
     # store the current url in a variable
     current_page = driver.current_url
+
     try:
         # find element using css selector
         links = driver.find_elements_by_xpath("//a[@href]")
 
-        # create a list and chose a random link
-        l = links[randint(0, len(links) - 1)]
-        print l
+        # chose a random link
+
+        rando_link_no=(random.randint(0, len(links))) - 1
+
+        l = links[rando_link_no]
+
         random_amount_of_waiting() # Let the user actually see something!
 
         # click link
         l.click()
-        # check link
-        #new_page = driver.current_url #this maybe shouldn't be commented out
+
+        # # check link
+        # new_page = driver.current_url #this maybe shouldn't be commented out
+        #
+        # # if link is the same, keep looping
+        # if new_page == current_page:
+        #     continue
+        # else:
+        #     # break loop if you are in a new url
+        #     break
 
         #1 in 10 times, start from a new source again
-        num1= random.randint(1, 10)
+        num1=random.randint(1, 10)
+        print num1
         if num1==7:
             init=0
         else:
             init=1
-
         #see if
-
-        if len(driver.window_handles) > 1:
-            driver.switch_to_window(driver.window_handles[1])
+        #if len(driver.window_handles) > 1:
+        #    driver.switch_to_window(driver.window_handles[1])
 
     except:
         continue
